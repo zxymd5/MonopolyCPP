@@ -100,7 +100,8 @@
       </Command>
     </PostBuildEvent>
     <PreLinkEvent>
-      <Command></Command>
+      <Command>
+      </Command>
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup>
@@ -111,8 +112,13 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
       <Outputs>$(TargetName).cab</Outputs>
       <Inputs>$(TargetFileName)</Inputs>
     </CustomBuildStep>
+    <PreBuildEvent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy $(COCOS2D_X_ROOT)\prebuild\win32\$(Configuration) $(OutDir)</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">拷贝库到指定目录</Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
-
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
@@ -143,8 +149,15 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
       </Command>
     </PostBuildEvent>
     <PreLinkEvent>
-      <Command></Command>
+      <Command>
+      </Command>
     </PreLinkEvent>
+    <PreBuildEvent>
+      <Command>copy $(COCOS2D_X_ROOT)\prebuild\win32\$(Configuration) $(OutDir)</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>拷贝库到指定目录</Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
